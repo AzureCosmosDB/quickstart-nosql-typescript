@@ -26,9 +26,9 @@ export class DataClient {
     async createClient(emit: Emit, endpoint: string = process.env.AZURE_COSMOS_DB_NOSQL_ENDPOINT!): Promise<CosmosClient> {
         console.log(`ENDPOINT: ${endpoint}`);
 
-    const client = new CosmosClient(
-        connectionString: "<azure-cosmos-db-nosql-connection-string>"
-    );
+        const client = new CosmosClient(
+            connectionString: "<azure-cosmos-db-nosql-connection-string>"
+        );
 
         return client;
     }
