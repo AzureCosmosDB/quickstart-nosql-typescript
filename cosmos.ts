@@ -20,12 +20,10 @@ export class DataClient {
 
         await this.queryItems(emit, container);
 
-        emit('Current Status:\tEnding...');
+        emit('Current Status:\tFinalizing...');
     }
 
-    async createClient(emit: Emit, endpoint: string = process.env.AZURE_COSMOS_DB_NOSQL_ENDPOINT!): Promise<CosmosClient> {
-        console.log(`ENDPOINT: ${endpoint}`);
-
+    async createClient(emit: Emit): Promise<CosmosClient> {
         const client = new CosmosClient(
             "<azure-cosmos-db-nosql-connection-string>"
         );
@@ -34,21 +32,18 @@ export class DataClient {
     }
 
     async createContainer(emit: Emit, client: CosmosClient): Promise<Container> {
-        // <get_database>
         const database: Database = client.database('cosmicworks');
-        // </get_database>
+
         emit(`Get database:\t${database.id}`);
 
-        // <get_container>
         const container: Container = database.container('products');
-        // </get_container>
+
         emit(`Get container:\t${container.id}`);
 
         return container;
     }
 
     async createItemVerbose(emit: Emit, container: Container) {
-        // <create_item>
         var item: Product = {
             'id': '70b63682-b93a-4c77-aad2-65501347265f',
             'category': 'gear-surf-surfboards',
@@ -59,7 +54,7 @@ export class DataClient {
         };
 
         var response: ItemResponse<Product> = await container.items.upsert<Product>(item);
-        // </create_item>
+
         if (response.statusCode == 200 || response.statusCode == 201) {
             emit(`Upserted item:\t${JSON.stringify(response.resource)}`);
         }
@@ -82,13 +77,12 @@ export class DataClient {
     }
 
     async readItem(emit: Emit, container: Container) {
-        // <read_item>
         var id = '70b63682-b93a-4c77-aad2-65501347265f';
         var partitionKey = 'gear-surf-surfboards';
 
         var response: ItemResponse<Product> = await container.item(id, partitionKey).read<Product>();
         var read_item: Product = response.resource!;
-        // </read_item>
+
         emit(`Read item id:\t${read_item?.id}`);
         emit(`Read item:\t${JSON.stringify(read_item)}`);
         emit(`Status code:\t${response.statusCode}`);
@@ -96,7 +90,6 @@ export class DataClient {
     }
 
     async queryItems(emit: Emit, container: Container) {
-        // <query_items>
         const querySpec: SqlQuerySpec = {
             query: 'SELECT * FROM products p WHERE p.category = @category',
             parameters: [
@@ -111,7 +104,7 @@ export class DataClient {
         for (var item of response.resources) {
 
         }
-        // </query_items>
+
         for (var item of response.resources) {
             emit(`Found item:\t${item.name}\t${item.id}`);
         }
