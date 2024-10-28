@@ -1,5 +1,5 @@
-import { DefaultAzureCredential } from '@azure/identity';
-import { Container, CosmosClient, Database, FeedResponse, ItemResponse, Resource, SqlQuerySpec } from '@azure/cosmos';
+import { DefaultAzureCredential, TokenCredential } from '@azure/identity';
+import { Container, CosmosClient, Database, FeedResponse, ItemResponse, SqlQuerySpec } from '@azure/cosmos';
 
 import { Emit, Product } from './types'
 
@@ -23,7 +23,7 @@ export class DataClient {
         emit('Current Status:\tFinalizing...');
     }
 
-    async createClient(emit: Emit): Promise<CosmosClient> {
+    async createClient(_: Emit): Promise<CosmosClient> {
         const client = new CosmosClient(
             "<azure-cosmos-db-nosql-connection-string>"
         );
