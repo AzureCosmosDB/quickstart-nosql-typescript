@@ -51,7 +51,7 @@ jobs:
           shopt -s extglob
           rm -rf !(".devcontainer"|".github"|"LICENSE"|"readme.md")
       - name: Copy source to target
-        run: cp -ra source/src/. target/
+        run: cp -ra source/src/ts/. target/
       - name: Change text content
         working-directory: target
         run: |
@@ -61,7 +61,7 @@ jobs:
           /^\s*\/\/ <create_client>/ { in_block = 1; print content; next }
           /^\s*\/\/ <\/create_client>/ { in_block = 0; next }
           !in_block { print }
-          ' ts/cosmos.ts > ts/cosmos.tmp.ts && mv ts/cosmos.tmp.ts ts/cosmos.ts
+          ' cosmos.ts > cosmos.tmp.ts && mv cosmos.tmp.ts cosmos.ts
       - name: Add changes to git
         working-directory: target
         run: |
