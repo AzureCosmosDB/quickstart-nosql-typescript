@@ -61,7 +61,7 @@ jobs:
           /^\s*\/\/ <create_client>/ { in_block = 1; print content; next }
           /^\s*\/\/ <\/create_client>/ { in_block = 0; next }
           !in_block { print }
-          ' cosmos.ts > cosmos.tmp.ts && mv cosmos.tmp.ts cosmos.ts
+          ' ts/cosmos.ts > ts/cosmos.tmp.ts && mv ts/cosmos.tmp.ts ts/cosmos.ts
       - name: Add changes to git
         working-directory: target
         run: |
