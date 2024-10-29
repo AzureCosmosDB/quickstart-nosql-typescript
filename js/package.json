@@ -1,0 +1,25 @@
+{
+  "repository": {
+    "url": "https://github.com/azure-samples/cosmos-db-nosql-nodejs-quickstart.git",
+    "directory": "src/js",
+    "type": "git"
+  },
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "npx nodemon app.js"
+  },
+  "dependencies": {
+    "@azure/cosmos": "^4",
+    "@azure/identity": "^4",
+    "dotenv": "^16",
+    "express": "^4",
+    "express-rate-limit": "^7",
+    "serve-favicon": "^2",
+    "socket.io": "^4"
+  },
+  "devDependencies": {
+    "nodemon": "^3"
+  }
+}
